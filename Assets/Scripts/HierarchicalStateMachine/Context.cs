@@ -1,15 +1,22 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class SmContext
+public class Context
 {
-    public HFSM StateMachine;
-    public GameObject GameObject;
-    public float TimeSinceEnterState;
+    public Context(HierarchicalStateMachine sm, GameObject gameObject)
+    {
+        this.StateMachine = sm;
+        this.GameObject = gameObject;
+    }
+    public readonly HierarchicalStateMachine StateMachine;
+    public readonly GameObject GameObject;
+    public float Delta;
 }
 
-public class PlayerContext : SmContext
+public class PlayerContext : Context
 {
+    public PlayerContext(HierarchicalStateMachine sm, GameObject gameObject) : base(sm, gameObject){}
+    
     public InputAction.CallbackContext Input;
     public bool Grounded;
 

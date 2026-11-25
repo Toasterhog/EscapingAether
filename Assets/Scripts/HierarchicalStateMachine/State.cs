@@ -7,7 +7,7 @@ public abstract class State
     public virtual void Enter(){}
     public virtual void Exit(){}
 
-    public virtual void Process(SmContext ctx)
+    public virtual void Process(Context ctx)
     {
         if (ChildState != null)
         {
@@ -16,10 +16,4 @@ public abstract class State
     }
 }
 
-namespace PlayerStates
-{
-    public abstract class PlayerState : State
-    {
-        
-    }
-}
+
