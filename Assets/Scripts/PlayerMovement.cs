@@ -13,10 +13,7 @@ public class PlayerCore : Core
         Debug.Log("start executed on playermovement : core");
     }
 
-    void Update()
-    {
-        
-    }
+   
 
     public void OnInput(InputAction.CallbackContext inputContext)
     {

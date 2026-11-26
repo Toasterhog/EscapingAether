@@ -5,14 +5,21 @@ public abstract class State : MonoBehaviour
     // private Core core;
     protected State ActiveChildState;
     protected State NextState;
-    //protected State Parent;
+    protected State Parent;
 
-    public State GetInitialState() => null;
+    public virtual State GetInitialState() => null;
+    public abstract State[] GetCildStates();
     public abstract void SetCore(Core _core);
     
-    public virtual void Init(Core _core)
+    public void Init(Core _core, State parent = null)
     {
         SetCore(_core);
+        Parent = parent; //?? GetComponentInParent<State>(); // ?
+        foreach (State child in GetCildStates())
+        {
+            if(child == null) Debug.Log("Child State Not Set for " + this.GetType().Name);
+            child.Init(_core, this);
+        }
     }
 
     public void Enter()
@@ -60,4 +67,5 @@ public abstract class PlayerState : State
 {
     protected PlayerCore core;
     public override void SetCore(Core _core) => core ??= (PlayerCore)_core;
+    //protected float time;
 }
