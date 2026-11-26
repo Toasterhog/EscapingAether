@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public abstract class State
+public abstract class State : MonoBehaviour
 {
     //public State ChildState;
-    
-    public virtual void Enter(Context ctx){}
-    public virtual void Exit(Context ctx){}
+    public virtual void Init(){}
+    public virtual void Enter(){}
+    public virtual void Exit(){}
 
-    public virtual void Process(Context ctx)
+    public virtual void Process()
     {
         // if (ChildState != null)
         // {
@@ -16,4 +16,11 @@ public abstract class State
     }
 }
 
-
+public abstract class PlayerState : State
+{
+    public PlayerContext ctx;
+    public override void Init()
+    {
+        ctx = GetComponentInParent<PlayerContext>();
+    }
+}

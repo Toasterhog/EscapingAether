@@ -1,16 +1,20 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class HierarchicalStateMachine
+public class HierarchicalStateMachine : MonoBehaviour
 {
+    [SerializeField] private List<State> StateList;
     protected State CurrentState;
     protected State NextState;
-    public Context Context;
     
-    public void Init(Context context, State initialState)
+    public void Init()
     {
-        Context = context;
-        CurrentState = initialState;
-        CurrentState.Enter(Context);
+        foreach (State state in StateList)
+        {
+            state.Init();
+        }
+        CurrentState = StateList[0];
+        CurrentState.Enter();
     }
 
     public void Process()
@@ -18,18 +22,13 @@ public class HierarchicalStateMachine
         if (NextState != null)
         {
             Debug.Log(CurrentState + " change state to " + NextState );
-            CurrentState.Exit(Context);
+            CurrentState.Exit();
             CurrentState = NextState;
             NextState = null;
-            CurrentState.Enter(Context);
+            CurrentState.Enter();
         }
-
-        if (Context == null)
-        {
-            Debug.Log("Context is null");
-            return;
-        }
-        CurrentState.Process(Context);
+        
+        CurrentState.Process();
         
     }
 

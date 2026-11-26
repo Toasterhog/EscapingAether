@@ -2,25 +2,19 @@ using UnityEngine;
 
 namespace PlayerStates
 {
-    public class PlayerStateIdle : State
+    public class PlayerStateIdle : PlayerState
     {
-        public override void Process(Context ctx)
+        public override void Process()
         {
-            if (ctx is PlayerContext c)
+            if (ctx.JumpInput)
             {
-                if (c.JumpInput)
-                {
-                    c.StateMachine.ChangeState(new PlayerStateJump());
-                }
+                //ctx.StateMachine.ChangeState(new PlayerStateJump());
             }
             
         }
-        public override void Enter(Context ctx)
+        public override void Enter()
         {
-            if (ctx is PlayerContext c)
-            {
-                c.GameObject.GetComponent<SpriteRenderer>().color = Color.blue;
-            }
+            ctx.GameObject.GetComponent<SpriteRenderer>().color = Color.dodgerBlue;
         }
     }
 }
