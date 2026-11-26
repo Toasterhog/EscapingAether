@@ -1,14 +1,21 @@
 using UnityEngine;
 
-public class Context : MonoBehaviour
+public abstract class Core : MonoBehaviour
 {
-    // public Context(HierarchicalStateMachine sm, GameObject gameObject)
-    // {
-    //     this.StateMachine = sm;
-    //     this.GameObject = gameObject;
-    // }
-    public  HierarchicalStateMachine StateMachine;
-    public  GameObject GameObject;
-    public float Delta;
+    public State Root;
+
+    void Start()
+    {
+        Debug.Log("start executed on Core");
+        OnStart();
+        Root.Init(this);
+        Root.Enter();
+    }
+
+    protected abstract void OnStart();
+    void Update()
+    {
+        Root.Process();
+    }
 }
 

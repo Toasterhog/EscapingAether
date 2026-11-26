@@ -2,26 +2,20 @@ using PlayerStates;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerCore : Core
 {
-    
     [SerializeField] private Collider2D groundCheckCollider;
     private LayerMask groundLayer;
-    private HierarchicalStateMachine stateMachine;
-    private PlayerContext ctx;
-    void Start()
+    public bool JumpInput;
+    protected override void OnStart()
     {
         groundLayer = LayerMask.GetMask("ground");
-        stateMachine = GetComponentInChildren<HierarchicalStateMachine>();
-        ctx = GetComponentInChildren<PlayerContext>();
-        stateMachine.Init();
+        Debug.Log("start executed on playermovement : core");
     }
 
     void Update()
     {
-        ctx.Delta = Time.deltaTime;
-        ctx.Grounded = groundCheckCollider.IsTouchingLayers(groundLayer);
-        stateMachine.Process();
+        
     }
 
     public void OnInput(InputAction.CallbackContext inputContext)
@@ -29,8 +23,8 @@ public class PlayerMovement : MonoBehaviour
         switch (inputContext.action.name)
         {
             case "Jump":
-                if(inputContext.performed) ctx.JumpInput = true;
-                if(inputContext.canceled) ctx.JumpInput = false;
+                if(inputContext.performed) JumpInput = true;
+                if(inputContext.canceled) JumpInput = false;
                 break;
 
         }

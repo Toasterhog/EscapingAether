@@ -4,18 +4,20 @@ namespace PlayerStates
 {
     public class PlayerStateIdle : PlayerState
     {
-        public override void Process()
+        protected override void OnProcess()
         {
-            if (ctx.JumpInput)
+            if (core.JumpInput)
             {
                 //ctx.StateMachine.ChangeState(new PlayerStateJump());
             }
             
         }
-        public override void Enter()
+        protected override void OnEnter()
         {
-            ctx.GameObject.GetComponent<SpriteRenderer>().color = Color.dodgerBlue;
+            Debug.Log("onenter idle, core: " + core);
+            core.gameObject.GetComponent<SpriteRenderer>().color = Color.dodgerBlue;
         }
+        
     }
 }
 
