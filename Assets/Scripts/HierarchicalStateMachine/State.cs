@@ -1,18 +1,18 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public abstract class State
 {
-    public State ChildState;
-    public virtual void Enter(){}
-    public virtual void Exit(){}
+    //public State ChildState;
+    
+    public virtual void Enter(Context ctx){}
+    public virtual void Exit(Context ctx){}
 
     public virtual void Process(Context ctx)
     {
-        if (ChildState != null)
-        {
-            ChildState.Process(ctx);
-        }
+        // if (ChildState != null)
+        // {
+        //     ChildState.Process(ctx);
+        // }
     }
 }
 

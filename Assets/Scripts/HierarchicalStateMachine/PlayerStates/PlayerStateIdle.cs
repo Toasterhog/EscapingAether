@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace PlayerStates
 {
@@ -7,14 +6,22 @@ namespace PlayerStates
     {
         public override void Process(Context ctx)
         {
-            PlayerContext c = ctx as PlayerContext;
-            if (c.Input.action.name == "Jump")
+            if (ctx is PlayerContext c)
             {
-                Debug.Log("Jump");
+                if (c.JumpInput)
+                {
+                    c.StateMachine.ChangeState(new PlayerStateJump());
+                }
             }
-            base.Process(ctx);
+            
+        }
+        public override void Enter(Context ctx)
+        {
+            if (ctx is PlayerContext c)
+            {
+                c.GameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+            }
         }
     }
-
 }
 

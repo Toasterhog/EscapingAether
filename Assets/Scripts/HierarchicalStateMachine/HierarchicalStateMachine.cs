@@ -6,23 +6,31 @@ public class HierarchicalStateMachine
     protected State NextState;
     public Context Context;
     
-    public void Init(GameObject gameObject, State defaultState)
+    public void Init(Context context, State initialState)
     {
-        Context = new Context(this, gameObject);
-        CurrentState = defaultState;
-        CurrentState.Enter();
+        Context = context;
+        CurrentState = initialState;
+        CurrentState.Enter(Context);
     }
 
     public void Process()
     {
         if (NextState != null)
         {
-            CurrentState.Exit();
+            Debug.Log(CurrentState + " change state to " + NextState );
+            CurrentState.Exit(Context);
             CurrentState = NextState;
             NextState = null;
-            CurrentState.Enter();
+            CurrentState.Enter(Context);
+        }
+
+        if (Context == null)
+        {
+            Debug.Log("Context is null");
+            return;
         }
         CurrentState.Process(Context);
+        
     }
 
     public void ChangeState(State newState)

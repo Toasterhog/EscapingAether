@@ -16,8 +16,8 @@ public class Context
 public class PlayerContext : Context
 {
     public PlayerContext(HierarchicalStateMachine sm, GameObject gameObject) : base(sm, gameObject){}
-    
-    public InputAction.CallbackContext Input;
+
+    public bool JumpInput;
     public bool Grounded;
 
 }
