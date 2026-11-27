@@ -1,43 +1,39 @@
-// using PlayerStates;
-// using UnityEngine;
-//
-// namespace PlayerStates
-// {
-//     public class PlayerStateFall : State
-//     {
-//         private float MaxFallSpeed = 20f;
-//         public override void Process(Context ctx)
-//         {
-//             if (ctx is PlayerContext c)
-//             {
-//                 if (c.GameObject.GetComponent<Rigidbody2D>().linearVelocityY < -MaxFallSpeed)
-//                 {
-//                     c.GameObject.GetComponent<Rigidbody2D>().linearVelocityY = -MaxFallSpeed;
-//                 }
-//
-//                 if (c.Grounded)
-//                 {
-//                     c.StateMachine.ChangeState(new PlayerStateIdle());
-//                 }
-//             }
-//             
-//         }
-//
-//         public override void Enter(Context ctx)
-//         {
-//             if (ctx is PlayerContext c)
-//             {
-//                 c.GameObject.GetComponent<Rigidbody2D>().gravityScale = 5f;
-//                 c.GameObject.GetComponent<SpriteRenderer>().color = Color.forestGreen;
-//             }
-//         }
-//         public override void Exit(Context ctx)
-//         {
-//             if (ctx is PlayerContext c)
-//             {
-//                 c.GameObject.GetComponent<Rigidbody2D>().gravityScale = 1f;
-//             }
-//         }
-//     }
-// }
-//
+using PlayerStates;
+using UnityEngine;
+
+namespace PlayerStates
+{
+    public class PlayerStateFall : PlayerState
+    {
+        private float MaxFallSpeed = 20f;
+        protected override void OnProcess()
+        {
+            if (core.gameObject.GetComponent<Rigidbody2D>().linearVelocityY < -MaxFallSpeed)
+            {
+                core.gameObject.GetComponent<Rigidbody2D>().linearVelocityY = -MaxFallSpeed;
+            }
+
+            if (core.Grounded)
+            {
+                //Parent.ChangeState((Parent.Parent));
+            }
+            
+        }
+        protected override void OnEnter()
+        {
+            core.gameObject.GetComponent<Rigidbody2D>().gravityScale = 5f;
+            core.gameObject.GetComponent<SpriteRenderer>().color = Color.forestGreen;
+        }
+        protected override void OnExit()
+        {
+            core.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1f;
+        }
+
+        public override State GetInitialState() => null;
+        public override State[] GetCildStates()
+        {
+            return new State[] {};
+        }
+    }
+}
+

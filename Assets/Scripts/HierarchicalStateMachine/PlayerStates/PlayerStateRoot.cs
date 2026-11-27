@@ -2,22 +2,24 @@ using UnityEngine;
 
 namespace PlayerStates
 {
+    [RequireComponent(typeof(PlayerStateGrounded),typeof(PlayerStateAirborne))]
     public class PlayerStateRoot : PlayerState
     {
-        public PlayerStateIdle idle;
-        public PlayerStateJump jump;
+        
+        public PlayerStateGrounded grounded;
+        public PlayerStateAirborne airborne;
         protected override void OnProcess()
         {
             if( Time.time % 2f < 1f)
             {
-                if(ActiveChildState != jump){
-                    ChangeState(jump);
+                if(ActiveChildState != airborne){
+                    ChangeState(airborne);
                 }
             }
             else
             {
-                if(ActiveChildState != idle){
-                    ChangeState(idle);
+                if(ActiveChildState != grounded){
+                    ChangeState(grounded);
                 }
             }
             
@@ -28,10 +30,10 @@ namespace PlayerStates
             core.gameObject.GetComponent<SpriteRenderer>().color = Color.gray;
         }
 
-        public override State GetInitialState() => idle;
+        public override State GetInitialState() => grounded;
         public override State[] GetCildStates()
         {
-            return new State[] {idle, jump};
+            return new State[] {grounded, airborne};
         }
     }
 }

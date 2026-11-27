@@ -7,6 +7,7 @@ public class PlayerCore : Core
     [SerializeField] private Collider2D groundCheckCollider;
     private LayerMask groundLayer;
     public bool JumpInput;
+    public bool Grounded;
     protected override void OnStart()
     {
         groundLayer = LayerMask.GetMask("ground");

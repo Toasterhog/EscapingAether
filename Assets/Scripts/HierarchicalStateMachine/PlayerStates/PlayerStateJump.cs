@@ -5,25 +5,24 @@ namespace PlayerStates
     public class PlayerStateJump : PlayerState
     {
         private float jumpForce = 3f;
-        // protected override void OnProcess()
-        // {
-        //     if(core.JumpInput)
-        //     {
-        //         if (core.JumpInput == false)
-        //         {
-        //             Parent.ChangeState((PlayerStateAirborne)new PlayerStateUpwardsFall());
-        //         }
-        //         if (core.gameObject.GetComponent<Rigidbody2D>().linearVelocityY < 0f)
-        //         {
-        //             core.StateMachine.ChangeState(new PlayerStateFall());
-        //         }
-        //         // if (c.Grounded)
-        //         // {
-        //         //     c.StateMachine.ChangeState(new PlayerStateIdle());
-        //         // }
-        //     }
-        //     
-        // }
+        protected override void OnProcess()
+        {
+            
+            if ( !core.JumpInput)
+            {
+                Parent.ChangeState(((PlayerStateAirborne)Parent).upwardsFall);
+            }
+            if (core.gameObject.GetComponent<Rigidbody2D>().linearVelocityY < 0f)
+            {
+                Parent.ChangeState(((PlayerStateAirborne)Parent).fall);
+            }
+            // if (c.Grounded)
+            // {
+            //     c.StateMachine.ChangeState(new PlayerStateIdle());
+            // }
+            
+            
+        }
 
         protected override void OnEnter()
         {

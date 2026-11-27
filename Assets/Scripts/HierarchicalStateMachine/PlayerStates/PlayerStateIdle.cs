@@ -9,7 +9,7 @@ namespace PlayerStates
         {
             if (core.JumpInput)
             {
-                Parent.ChangeState( ((PlayerStateRoot)Parent).idle);
+               // Parent.ChangeState( ((PlayerStateRoot(PlayerStateGrounded)Parent).Parent).idle);
             }
             
         }

@@ -1,42 +1,44 @@
-// using UnityEngine;
-//
-// namespace PlayerStates
-// {
-//     public class PlayerStateUpwardsFall : State
-//     {
-//         public override void Process(Context ctx)
-//         {
-//             if (ctx is PlayerContext c)
-//             {
-//                 if (c.GameObject.GetComponent<Rigidbody2D>().linearVelocityY < 0f)
-//                 {
-//                     c.StateMachine.ChangeState(new PlayerStateFall());
-//                 }
-//
-//                 if (c.Grounded)
-//                 {
-//                     c.StateMachine.ChangeState(new PlayerStateIdle());
-//                 }
-//             }
-//             
-//         }
-//
-//         public override void Enter(Context ctx)
-//         {
-//             if (ctx is PlayerContext c)
-//             {
-//                 c.GameObject.GetComponent<Rigidbody2D>().gravityScale = 4;
-//                 c.GameObject.GetComponent<SpriteRenderer>().color = Color.limeGreen;
-//             }
-//         }
-//         // public override void Exit(Context ctx)
-//         // {
-//         //     if (ctx is PlayerContext c)
-//         //     {
-//         //         c.GameObject.GetComponent<Rigidbody2D>().gravityScale = 1f;
-//         //     }
-//         // }
-//     }
-//
-// }
-//
+using UnityEngine;
+
+namespace PlayerStates
+{
+    public class PlayerStateUpwardsFall : PlayerState
+    {
+        protected override void OnProcess()
+        {
+            if (core.gameObject.GetComponent<Rigidbody2D>().linearVelocityY < 0f)
+            {
+                Parent.ChangeState(((PlayerStateAirborne)Parent).fall);
+            }
+        
+            if (core.Grounded)
+            {
+                //core.StateMachine.ChangeState(new PlayerStateIdle());
+            }
+            
+        }
+
+        protected override void OnEnter()
+        {
+            core.gameObject.GetComponent<Rigidbody2D>().gravityScale = 4;
+            core.gameObject.GetComponent<SpriteRenderer>().color = Color.limeGreen;
+        }
+        // public override void Exit(Context ctx)
+        // {
+        //     if (ctx is PlayerContext c)
+        //     {
+        //         c.GameObject.GetComponent<Rigidbody2D>().gravityScale = 1f;
+        //     }
+        // }
+        protected override void OnExit()
+        {
+            core.gameObject.GetComponent<Rigidbody2D>().gravityScale = 1f;
+        }
+        public override State[] GetCildStates()
+        {
+            return new State[] {};
+        }
+    }
+
+}
+
